@@ -2,7 +2,13 @@
 
 buildscript {
     repositories {
-        jcenter()
+        // gradle1.7 or upper:
+        //jcenter()
+
+        // gradle earlier version
+        maven {
+            url "https://jcenter.bintray.com"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.3.0'
