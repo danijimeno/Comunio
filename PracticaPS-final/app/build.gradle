@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// NEW after added path of the pluggin of cucumber, apply plugin (but seems doesn't work with android):
+//apply plugin: 'com.github.samueltbrown.cucumber'
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -27,4 +30,12 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
     compile 'com.android.support:cardview-v7:23.1.0'
+
+    // NEW adding dependencies related to cucumber
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.0.0.RC13'
+    testCompile group: 'info.cukes', name: 'cucumber-java', version: '1.0.0.RC13'
+    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.0.0.RC13'
+    testCompile group: 'info.cukes', name: 'cucumber-core', version: '1.0.0.RC13'
+    testCompile group: 'org.picocontainer', name: 'picocontainer', version: '2.10.2'
 }
