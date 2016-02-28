@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
 
-// NEW after added path of the pluggin of cucumber, apply plugin (but seems doesn't work with android):
-//apply plugin: 'com.github.samueltbrown.cucumber'
-
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -25,7 +22,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.a12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile 'com.android.support:recyclerview-v7:23.1.0'
@@ -33,9 +29,17 @@ dependencies {
 
     // NEW adding dependencies related to cucumber
     testCompile group: 'junit', name: 'junit', version: '4.+'
-    testCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.0.0.RC13'
-    testCompile group: 'info.cukes', name: 'cucumber-java', version: '1.0.0.RC13'
-    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.0.0.RC13'
-    testCompile group: 'info.cukes', name: 'cucumber-core', version: '1.0.0.RC13'
+    testCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.4'
+    testCompile group: 'info.cukes', name: 'cucumber-java', version: '1.2.4'
+    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.4'
+    testCompile group: 'info.cukes', name: 'cucumber-core', version: '1.2.4'
     testCompile group: 'org.picocontainer', name: 'picocontainer', version: '2.10.2'
 }
+
+// NEW to execute tests, put in terminal: ./gradlew test
+// warning!: @give, @when, @then etc must be different. Else -> error
+// pd:
+//      xxx.feature to test/cucumber/features (required)
+//      xxx.java    to test/java/com/example/pdred/practicaps_final (required)
+//
+// if used tidygherkin, remember to change the class name with the file name
