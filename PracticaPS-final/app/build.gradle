@@ -38,6 +38,7 @@ dependencies {
 
 // NEW to execute tests, put in terminal: ./gradlew test
 // warning!: @give, @when, @then etc must be different. Else -> error
+// CucumberTest.java is necesary for execute tests
 // pd:
 //      xxx.feature to test/cucumber/features (required)
 //      xxx.java    to test/java/com/example/pdred/practicaps_final (required)
