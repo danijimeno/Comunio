@@ -156,13 +156,16 @@ task merge(dependsOn: ['pull','push']) {
     }
     doLast {
         exec {
+            println("Switch to branch master")
             executable "git"
             args "checkout", "master"
             branch = console.readLine('> Branch to merge: ')
             exec {
+                println("Mergering branch " + branch + "into master branch")
                 executable "git"
                 args "merge", branch
                 exec {
+                    println("Back to the branch " + branch)
                     executable "git"
                     args "checkout", branch
                 }
