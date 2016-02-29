@@ -65,7 +65,7 @@ configurations {
 
 }
 
-// NEW deffinitions
+// NEW definitions
 def console = System.console()
 def message, branch
 
@@ -135,13 +135,39 @@ task push(dependsOn: 'commit') {
         exec {
             if(console) {
                 branch = console.readLine('> Branch: ')
-                executable "git"
-                args "push","origin",branch
+                if(branch == "master") {
+                    println("#Error: push to master is not available")
+                } else {
+                    executable "git"
+                    args "push", "origin", branch
+                }
             } else {
                 logger.error "#Error: cannot get console."
             }
         }
         println("Pushed.")
+    }
+}
+
+// TASK MERGE
+task merge(dependsOn: ['pull','push']) {
+    doFirst {
+        println("MERGERING ...")
+    }
+    doLast {
+        exec {
+            executable "git"
+            args "checkout", "master"
+            branch = console.readLine('> Branch to merge: ')
+            exec {
+                executable "git"
+                args "merge", branch
+                exec {
+                    executable "git"
+                    args "checkout", branch
+                }
+            }
+        }
     }
 }
 
