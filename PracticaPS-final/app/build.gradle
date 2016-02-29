@@ -161,10 +161,14 @@ task merge(dependsOn: ['pull','push']) {
             branch = console.readLine('> Branch to merge: ')
             exec {
                 executable "git"
-                args "merge", branch
+                args "merge", "--no-ff", branch
                 exec {
                     executable "git"
-                    args "checkout", branch
+                    args "push", "origin", "master"
+                    exec {
+                        executable "git"
+                        args "checkout", branch
+                    }
                 }
             }
         }
