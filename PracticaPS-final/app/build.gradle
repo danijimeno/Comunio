@@ -129,7 +129,7 @@ task push(dependsOn: 'commit') {
     doLast {
         exec {
             if(console) {
-                branch = console.readLine('> Branch to push: ')
+                branch = console.readLine('> Your branch: ')
                 if(branch == "master") {
                     println("#Error: push to master is not available")
                 } else {
