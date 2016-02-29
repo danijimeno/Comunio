@@ -1,9 +1,6 @@
 // PLUGINS
 apply plugin: 'com.android.application'
 
-// IMPORTS
-import java.io.Console
-
 // ANDROID
 android {
     compileSdkVersion 23
@@ -41,8 +38,6 @@ dependencies {
     // NEW commented unnecesary dependencies (by the time)
     //testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.4'
     //testCompile group: 'org.picocontainer', name: 'picocontainer', version: '2.10.2'
-
-    // NEW added dependency for git
 
 }
 
@@ -134,7 +129,7 @@ task push(dependsOn: 'commit') {
     doLast {
         exec {
             if(console) {
-                branch = console.readLine('> Branch: ')
+                branch = console.readLine('> Your branch: ')
                 if(branch == "master") {
                     println("#Error: push to master is not available")
                 } else {
@@ -156,13 +151,16 @@ task merge(dependsOn: ['pull','push']) {
     }
     doLast {
         exec {
+            println("Switch to branch master")
             executable "git"
             args "checkout", "master"
             branch = console.readLine('> Branch to merge: ')
             exec {
+                println("Mergering branch " + branch + "into master branch")
                 executable "git"
                 args "merge", "--no-ff", branch
                 exec {
+                    println("Back to the branch " + branch)
                     executable "git"
                     args "push", "origin", "master"
                     exec {
