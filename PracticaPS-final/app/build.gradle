@@ -1,5 +1,10 @@
+// PLUGINS
 apply plugin: 'com.android.application'
 
+// IMPORTS
+import java.io.Console
+
+// ANDROID
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
@@ -31,16 +36,98 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.+'
     testCompile group: 'info.cukes', name: 'cucumber-junit', version: '1.2.4'
     testCompile group: 'info.cukes', name: 'cucumber-java', version: '1.2.4'
-    testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.4'
     testCompile group: 'info.cukes', name: 'cucumber-core', version: '1.2.4'
-    testCompile group: 'org.picocontainer', name: 'picocontainer', version: '2.10.2'
+
+    // NEW commented unnecesary dependencies (by the time)
+    //testCompile group: 'info.cukes', name: 'cucumber-picocontainer', version: '1.2.4'
+    //testCompile group: 'org.picocontainer', name: 'picocontainer', version: '2.10.2'
+
+    // NEW added dependency for git
+
 }
 
-// NEW to execute tests, put in terminal: ./gradlew test
-// warning!: @give, @when, @then etc must be different. Else -> error
-// CucumberTest.java is necesary for execute tests
-// pd:
-//      xxx.feature to test/cucumber/features (required)
-//      xxx.java    to test/java/com/example/pdred/practicaps_final (required)
-//
-// if used tidygherkin, remember to change the class name with the file name
+// NEW source sets
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+// NEW configuration
+configurations {
+
+}
+
+// NEW deffinitions
+def console = System.console()
+def message
+
+// NEW in development ... TASKS
+
+// TASK PULL
+task pull {
+
+}
+
+// TASK PUSH
+    // COMPILE
+task compile(dependsOn: ['assemble','test']) {
+    println("1. COMPILING ...")
+    doLast {
+        println("Compiled.")
+    }
+}
+
+    // ADD
+task add(dependsOn: 'compile') {
+    println("1. ADDING ...")
+    doLast {
+        exec {
+            executable "git"
+            args "add","."
+        }
+        println("Added.")
+    }
+}
+
+    // COMMIT
+task commit(dependsOn: 'add') {
+    println("3. COMMITING ...")
+    // ...
+    doLast {
+        exec {
+            if(console) {
+                message = console.readLine('> Mesage: ')
+                executable "git"
+                args "commit","-m",message
+            } else {
+                logger.error "#Error: cannot get console."
+            }
+        }
+        println("Commited.")
+    }
+}
+
+    // PUSH
+task push(dependsOn: 'commit') {
+    println("4. PUSHING ...")
+    doLast {
+        exec {
+            executable "git"
+            args "push","origin","Luis"
+        }
+        println("Pushed.")
+    }
+}
+
+// TASK CUCUMBER
+task cucumber () {
+
+}
