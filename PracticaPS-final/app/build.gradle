@@ -67,19 +67,27 @@ configurations {
 
 // NEW deffinitions
 def console = System.console()
-def message
+def message, branch
 
 // NEW in development ... TASKS
 
 // TASK PULL
 task pull {
-
+    doFirst {
+        println("PULLING ...")
+    }
+    exec {
+        executable "git"
+        args "pull", "origin", "master"
+    }
 }
 
 // TASK PUSH
     // COMPILE
 task compile(dependsOn: ['assemble','test']) {
-    println("1. COMPILING ...")
+    doFirst {
+        println("1. COMPILING ...")
+    }
     doLast {
         println("Compiled.")
     }
@@ -87,7 +95,9 @@ task compile(dependsOn: ['assemble','test']) {
 
     // ADD
 task add(dependsOn: 'compile') {
-    println("1. ADDING ...")
+    doFirst {
+        println("2. ADDING ...")
+    }
     doLast {
         exec {
             executable "git"
@@ -99,8 +109,9 @@ task add(dependsOn: 'compile') {
 
     // COMMIT
 task commit(dependsOn: 'add') {
-    println("3. COMMITING ...")
-    // ...
+    doFirst {
+        println("3. COMMITING ...")
+    }
     doLast {
         exec {
             if(console) {
@@ -117,11 +128,18 @@ task commit(dependsOn: 'add') {
 
     // PUSH
 task push(dependsOn: 'commit') {
-    println("4. PUSHING ...")
+    doFirst {
+        println("4. PUSHING ...")
+    }
     doLast {
         exec {
-            executable "git"
-            args "push","origin","Luis"
+            if(console) {
+                branch = console.readLine('> Branch: ')
+                executable "git"
+                args "push","origin",branch
+            } else {
+                logger.error "#Error: cannot get console."
+            }
         }
         println("Pushed.")
     }
