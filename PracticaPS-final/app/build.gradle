@@ -67,7 +67,7 @@ def message, branch
 // NEW in development ... TASKS
 
 // TASK PULL
-task pull {
+task pull << {
     doFirst {
         println("PULLING ...")
     }
@@ -156,9 +156,9 @@ task merge(dependsOn: ['pull','push']) {
             args "checkout", "master"
             branch = console.readLine('> Branch to merge: ')
             exec {
-                println("Mergering branch " + branch + "into master branch")
+                println("Mergering branch " + branch + " into master branch")
                 executable "git"
-                args "merge", "--no-ff", branch
+                args "merge", branch
                 exec {
                     println("Back to the branch " + branch)
                     executable "git"
