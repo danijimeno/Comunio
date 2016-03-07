@@ -110,6 +110,7 @@ task commit(dependsOn: 'add') {
     }
     doLast {
         exec {
+            ignoreExitValue true
             if(console) {
                 message = console.readLine('> Mesage: ')
                 executable "git"
@@ -129,6 +130,7 @@ task push(dependsOn: 'commit') {
     }
     doLast {
         exec {
+            ignoreExitValue true
             if(console) {
                 branch = console.readLine('> Your branch: ')
                 if(branch == "master") {
