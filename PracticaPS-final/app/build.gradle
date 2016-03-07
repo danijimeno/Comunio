@@ -74,6 +74,7 @@ task pull {
     exec {
         executable "git"
         args "pull", "origin", "master"
+        ignoreExitValue true
     }
 }
 
