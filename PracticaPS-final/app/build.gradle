@@ -161,7 +161,7 @@ task merge(dependsOn: ['pull','push']) {
             exec {
                 println("Mergering branch " + branch + " into master branch")
                 executable "git"
-                args "merge", "--no--ff", branch
+                args "merge", "--no-ff", branch
                 exec {
                     println("Back to the branch " + branch)
                     executable "git"
