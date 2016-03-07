@@ -67,13 +67,14 @@ def message, branch
 // NEW in development ... TASKS
 
 // TASK PULL
-task pull << {
+task pull {
     doFirst {
         println("PULLING ...")
     }
     exec {
         executable "git"
         args "pull", "origin", "master"
+        ignoreExitValue true
     }
 }
 
