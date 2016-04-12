@@ -1,0 +1,50 @@
+query("* index:8")
+query("* index:7")
+query("* index:6")
+touch("* index:6")
+query("button")
+query("*")
+query("*")
+touch("* index:8")
+keyboard_enter_text ""
+query("* index:8")
+clear_text
+query("* index:8")
+touch("* index:7")
+query("* index:7")
+touch("* index:7")
+touch("* index:7")
+query("*")
+query("*")
+exit
+  start_test_server_in_background
+exit
+  start_test_server_in_background
+exit
+reinstall_apps
+start_test_server_in_background
+query("*")
+query("button")
+touch("button index:1")
+query("*")
+query("button")
+query("*button")
+query("AppCompatButton")
+query("*")
+query("cValidar")
+query("* id:'#{bValidar}'")
+query("bValidar")
+query("* id:bValidar")
+query("* id:'bValidar'")
+query("button")
+touch("* id='button2'")
+query("* id='button2'")
+query("* id:'button2'")
+touch("* id:'button2'")
+touch("* id:'bUnirseNC'")
+enter_text("* id:'eTUnirseC'","ncf")
+sleep 2
+sleep 5
+query("*")
+element_exists("* id:'bRegistrar'")
+exit
